@@ -1,19 +1,21 @@
-package net.tassia.kiwi.driver.sun;
+package net.tassia.kiwi.driver;
 
 import net.tassia.kiwi.HttpMethod;
 import net.tassia.kiwi.HttpRequest;
 import net.tassia.kiwi.HttpResponse;
 import net.tassia.kiwi.Kiwi;
+import net.tassia.kiwi.middleware.Middleware;
 import net.tassia.kiwi.route.HttpRoute;
 
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class HttpRouteInternal {
+public class HttpRouteInternal {
 	protected String path = null;
 	protected Pattern pattern = null;
 	protected HttpRoute route = null;
+	protected Middleware[] middlewares = new Middleware[0];
 
 	protected boolean methodGET = false;
 	protected boolean methodPOST = false;
@@ -29,6 +31,7 @@ class HttpRouteInternal {
 		if (request.isMethod(HttpMethod.DELETE) && !methodDELETE) return false;
 		if (request.isMethod(HttpMethod.PATCH) && !methodPATCH) return false;
 
+
 		// Check path
 		String uri = request.getPath();
 		if (uri.endsWith("/")) uri = uri.substring(0, uri.length() - 1);
@@ -42,6 +45,15 @@ class HttpRouteInternal {
 			matches.push(matcher.group(1));
 		}
 
+
+		// Execute request middlewares
+		for (Middleware mw : middlewares) {
+			if (mw.isRequestMiddleware()) {
+				mw.applyToRequest(request);
+			}
+		}
+
+
 		// Execute route
 		byte[] data = null;
 		try {
@@ -51,6 +63,14 @@ class HttpRouteInternal {
 			response.setData(response.error(500));
 		}
 		if (data != null) response.setData(data);
+
+
+		// Execute response middlewares
+		for (Middleware mw : middlewares) {
+			if (mw.isResponseMiddleware()) {
+				mw.applyToResponse(response);
+			}
+		}
 		return true;
 	}
 

@@ -1,7 +1,41 @@
 package net.tassia.kiwi;
 
-public abstract class HttpRequest implements HasHeaders {
+import java.util.HashMap;
+import java.util.Map;
 
+public abstract class HttpRequest {
+	private final Map<String, String[]> headers;
+
+	/* Constructor */
+	public HttpRequest() {
+		this.headers = new HashMap<>();
+	}
+	/* Constructor */
+
+
+
+
+
+	/* Headers */
+	public Map<String, String[]> getHeaders() {
+		return headers;
+	}
+
+	public String getHeader(String name) {
+		String[] h = getHeaders(name);
+		return h != null && h.length > 0 ? h[0] : null;
+	}
+
+	public String[] getHeaders(String name) {
+		return headers.get(name);
+	}
+	/* Headers */
+
+
+
+
+
+	/* Abstract Methods */
 	/**
 	 * TODO
 	 */
@@ -36,5 +70,6 @@ public abstract class HttpRequest implements HasHeaders {
 	 * TODO
 	 */
 	public abstract byte[] getPayload();
+	/* Abstract Methods */
 
 }

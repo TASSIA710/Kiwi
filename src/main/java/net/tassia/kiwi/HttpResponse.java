@@ -3,7 +3,7 @@ package net.tassia.kiwi;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class HttpResponse implements HasHeaders {
+public abstract class HttpResponse {
 	public static final String ERROR_CONTENT_TYPE = "text/plain; charset=utf-8";
 	private int code;
 	private byte[] data;
@@ -85,6 +85,26 @@ public abstract class HttpResponse implements HasHeaders {
 
 	public String[] getHeaders(String name) {
 		return headers.get(name);
+	}
+
+	public void setHeader(String name, String...value) {
+		headers.put(name, value);
+	}
+
+	public void addHeader(String name, String value) {
+		String[] h = headers.get(name);
+		if (h == null) {
+			setHeader(name, value);
+		} else {
+			String[] h2 = new String[h.length];
+			System.arraycopy(h, 0, h2, 0, h.length);
+			h2[h2.length - 1] = value;
+			setHeader(name, h2);
+		}
+	}
+
+	public void clearHeader(String name) {
+		headers.remove(name);
 	}
 	/* Headers */
 
