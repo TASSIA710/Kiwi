@@ -1,5 +1,6 @@
 package net.tassia.kiwi;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tassia.kiwi.driver.KiwiDriver;
 import net.tassia.kiwi.middleware.Middleware;
 import net.tassia.kiwi.route.HttpRoute;
@@ -12,6 +13,7 @@ public class Kiwi {
 	public static final int VERSION_PATCH = 1;
 	public static final int VERSION_BUILD = 1;
 	private final Logger logger;
+	private final ObjectMapper mapper;
 	private KiwiDriver driver;
 	private KiwiOptions options;
 
@@ -28,6 +30,7 @@ public class Kiwi {
 	 */
 	public Kiwi(KiwiOptions options) {
 		this.logger = Logger.getLogger("Kiwi");
+		this.mapper = new ObjectMapper();
 		this.driver = null;
 		this.options = options;
 	}
@@ -87,6 +90,10 @@ public class Kiwi {
 	/* Getters */
 	public Logger getLogger() {
 		return logger;
+	}
+
+	public ObjectMapper getMapper() {
+		return mapper;
 	}
 	/* Getters */
 

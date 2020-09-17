@@ -1,4 +1,4 @@
-package examples;
+package examples.simple;
 
 import net.tassia.kiwi.Kiwi;
 import net.tassia.kiwi.driver.sun.KiwiSunDriver;

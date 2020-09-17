@@ -1,0 +1,7 @@
+POST http://localhost:8080/sum
+Content-Type: application/json
+
+{
+	"x": 4,
+	"y": 3.64
+}
