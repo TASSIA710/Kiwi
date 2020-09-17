@@ -1,9 +1,6 @@
-package net.tassia.kiwi.driver;
+package net.tassia.kiwi.driver.sun;
 
-import net.tassia.kiwi.HttpMethod;
-import net.tassia.kiwi.HttpRequest;
-import net.tassia.kiwi.HttpResponse;
-import net.tassia.kiwi.Kiwi;
+import net.tassia.kiwi.*;
 import net.tassia.kiwi.middleware.Middleware;
 import net.tassia.kiwi.route.HttpRoute;
 
@@ -60,7 +57,7 @@ public class HttpRouteInternal {
 			data = route.process(kiwi, request, response, matches.toArray(new String[0]));
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			response.setData(response.error(500));
+			response.setData(response.error(HttpStatus.STATUS_500));
 		}
 		if (data != null) response.setData(data);
 

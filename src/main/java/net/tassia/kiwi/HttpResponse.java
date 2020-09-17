@@ -1,9 +1,10 @@
 package net.tassia.kiwi;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class HttpResponse {
+public class HttpResponse {
 	public static final String ERROR_CONTENT_TYPE = "text/plain; charset=utf-8";
 	private int code;
 	private byte[] data;
@@ -43,9 +44,23 @@ public abstract class HttpResponse {
 	 * TODO
 	 */
 	public byte[] error(int code) {
-		setCode(code);
-		// TODO: Set content-type header
-		return "ERROR".getBytes(); // TODO
+		HttpStatus status = HttpStatus.parseVersion(code);
+		if (status != null) {
+			return error(status);
+		} else {
+			setHeader("Content-Type", ERROR_CONTENT_TYPE);
+			setCode(code);
+			return ("Unknown Error: " + code).getBytes(StandardCharsets.UTF_8);
+		}
+	}
+
+	/**
+	 * TODO
+	 */
+	public byte[] error(HttpStatus status) {
+		setHeader("Content-Type", ERROR_CONTENT_TYPE);
+		setCode(status.getCode());
+		return status.getStatusLine().getBytes(StandardCharsets.UTF_8);
 	}
 	/* Response Code */
 
