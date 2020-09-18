@@ -8,7 +8,7 @@ import net.tassia.kiwi.route.HttpRoute;
 import java.util.logging.Logger;
 
 public class Kiwi {
-	public static final int VERSION_MAJOR = 0;
+	public static final int VERSION_MAJOR = 1;
 	public static final int VERSION_MINOR = 0;
 	public static final int VERSION_PATCH = 1;
 	public static final int VERSION_BUILD = 1;
@@ -59,7 +59,7 @@ public class Kiwi {
 	 * TODO
 	 */
 	public String getServerName() {
-		return "Kiwi/" + driver.getName() + " - " + VERSION_MAJOR + "." + VERSION_MINOR;
+		return "Kiwi-" + driver.getName() + "/" + VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 	}
 	/* Server Name */
 
@@ -197,7 +197,7 @@ public class Kiwi {
 	 * @return the escaped string
 	 */
 	public static String escapeXSS(String input) {
-		return EscapeXSSEngine.escapeXSS(input);
+		return EscapeEngine.escapeXSS(input);
 	}
 	/* Escape XSS */
 

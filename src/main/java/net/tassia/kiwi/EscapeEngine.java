@@ -1,6 +1,6 @@
 package net.tassia.kiwi;
 
-class EscapeXSSEngine {
+class EscapeEngine {
 
 	/**
 	 * Rule #1 - HTML Encode Before Inserting Untrusted Data into HTML Element Content

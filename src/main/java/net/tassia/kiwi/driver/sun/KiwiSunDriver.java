@@ -56,7 +56,14 @@ public class KiwiSunDriver extends KiwiDriver {
 
 			// Prepare & send response
 			try {
-				res.setHeader("Server", "Pancake");
+				res.setHeader("Server", kiwi.getServerName());
+
+				exchange.getResponseHeaders().clear();
+				for (Map.Entry<String, String[]> entry : res.getHeaders().entrySet()) {
+					for (String value : entry.getValue()) {
+						exchange.getResponseHeaders().add(entry.getKey(), value);
+					}
+				}
 
 				byte[] data = res.getData();
 				exchange.sendResponseHeaders(res.getCode(), data.length);
