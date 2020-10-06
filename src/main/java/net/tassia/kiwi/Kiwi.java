@@ -3,7 +3,7 @@ package net.tassia.kiwi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.tassia.kiwi.driver.KiwiDriver;
 import net.tassia.kiwi.middleware.Middleware;
-import net.tassia.kiwi.route.HttpRoute;
+import net.tassia.kiwi.route.HttpBasicRoute;
 
 import java.util.logging.Logger;
 
@@ -130,7 +130,7 @@ public class Kiwi {
 	/**
 	 * TODO
 	 */
-	public void MATCHES(String path, HttpRoute route, HttpMethod[] matches, Middleware...middlewares) {
+	public void MATCHES(String path, HttpBasicRoute route, HttpMethod[] matches, Middleware...middlewares) {
 		driver.MATCHES(path, route, matches, middlewares);
 	}
 
@@ -144,42 +144,42 @@ public class Kiwi {
 	/**
 	 * TODO
 	 */
-	public void GET(String path, HttpRoute route, Middleware...middlewares) {
+	public void GET(String path, HttpBasicRoute route, Middleware...middlewares) {
 		driver.GET(path, route, middlewares);
 	}
 
 	/**
 	 * TODO
 	 */
-	public void POST(String path, HttpRoute route, Middleware...middlewares) {
+	public void POST(String path, HttpBasicRoute route, Middleware...middlewares) {
 		driver.POST(path, route, middlewares);
 	}
 
 	/**
 	 * TODO
 	 */
-	public void PUT(String path, HttpRoute route, Middleware...middlewares) {
+	public void PUT(String path, HttpBasicRoute route, Middleware...middlewares) {
 		driver.PUT(path, route, middlewares);
 	}
 
 	/**
 	 * TODO
 	 */
-	public void DELETE(String path, HttpRoute route, Middleware...middlewares) {
+	public void DELETE(String path, HttpBasicRoute route, Middleware...middlewares) {
 		driver.DELETE(path, route, middlewares);
 	}
 
 	/**
 	 * TODO
 	 */
-	public void PATCH(String path, HttpRoute route, Middleware...middlewares) {
+	public void PATCH(String path, HttpBasicRoute route, Middleware...middlewares) {
 		driver.PATCH(path, route, middlewares);
 	}
 
 	/**
 	 * TODO
 	 */
-	public void ANY(String path, HttpRoute route, Middleware...middlewares) {
+	public void ANY(String path, HttpBasicRoute route, Middleware...middlewares) {
 		driver.ANY(path, route, middlewares);
 	}
 	/* Driver Wrapper */

@@ -6,7 +6,8 @@ import net.tassia.kiwi.*;
 import net.tassia.kiwi.Arrays;
 import net.tassia.kiwi.driver.KiwiDriver;
 import net.tassia.kiwi.middleware.Middleware;
-import net.tassia.kiwi.route.HttpRoute;
+import net.tassia.kiwi.route.HttpBasicRoute;
+import net.tassia.kiwi.views.HttpView;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -51,7 +52,8 @@ public class KiwiSunDriver extends KiwiDriver {
 				dispatchRequest(req, res);
 			} catch (IOException ex) {
 				ex.printStackTrace();
-				res.error(500);
+				res.setStatus(HttpStatus.STATUS_500);
+				return;
 			}
 
 			// Prepare & send response
@@ -90,12 +92,11 @@ public class KiwiSunDriver extends KiwiDriver {
 				return;
 			}
 		}
-		response.setHeader("Content-Type", HttpResponse.ERROR_CONTENT_TYPE);
-		response.setData(response.error(HttpStatus.STATUS_404));
+		response.setStatus(HttpStatus.STATUS_404);
 	}
 
 	@Override
-	public void MATCHES(String path, HttpRoute route, HttpMethod[] methods, Middleware...middlewares) {
+	public void MATCHES(String path, HttpBasicRoute route, HttpMethod[] methods, Middleware...middlewares) {
 		HttpRouteInternal r = new HttpRouteInternal();
 
 		r.path = path;

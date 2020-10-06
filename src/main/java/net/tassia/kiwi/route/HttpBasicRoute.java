@@ -5,7 +5,7 @@ import net.tassia.kiwi.HttpResponse;
 import net.tassia.kiwi.Kiwi;
 
 @FunctionalInterface
-public interface HttpRoute {
+public interface HttpBasicRoute {
 
 	/**
 	 * TODO

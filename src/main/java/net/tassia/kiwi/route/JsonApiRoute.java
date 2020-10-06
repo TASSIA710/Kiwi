@@ -5,10 +5,11 @@ import net.tassia.kiwi.HttpRequest;
 import net.tassia.kiwi.HttpResponse;
 import net.tassia.kiwi.HttpStatus;
 import net.tassia.kiwi.Kiwi;
+import net.tassia.kiwi.views.HttpView;
 
 import java.io.IOException;
 
-public abstract class JsonApiRoute<T> implements HttpRoute {
+public abstract class JsonApiRoute<T> implements HttpBasicRoute {
 	public static final String CONTENT_TYPE = "application/json; charset=utf-8";
 	private final Class<T> requestStructure;
 
@@ -24,7 +25,7 @@ public abstract class JsonApiRoute<T> implements HttpRoute {
 			try {
 				req = kiwi.getMapper().readValue(request.getPayload(), requestStructure);
 			} catch (IOException ex) {
-				return response.error(HttpStatus.STATUS_400);
+				return response.setStatus(HttpStatus.STATUS_400);
 			}
 		} else {
 			req = null;
@@ -40,7 +41,7 @@ public abstract class JsonApiRoute<T> implements HttpRoute {
 			data = kiwi.getMapper().writeValueAsBytes(res);
 		} catch (JsonProcessingException ex) {
 			ex.printStackTrace();
-			return response.error(HttpStatus.STATUS_500);
+			return response.setStatus(HttpStatus.STATUS_500);
 		}
 
 		// Send response

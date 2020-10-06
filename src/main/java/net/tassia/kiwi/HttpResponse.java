@@ -1,5 +1,7 @@
 package net.tassia.kiwi;
 
+import net.tassia.kiwi.views.HttpView;
+
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,24 +45,21 @@ public class HttpResponse {
 	/**
 	 * TODO
 	 */
-	public byte[] error(int code) {
-		HttpStatus status = HttpStatus.parseVersion(code);
-		if (status != null) {
-			return error(status);
-		} else {
-			setHeader("Content-Type", ERROR_CONTENT_TYPE);
-			setCode(code);
-			return ("Unknown Error: " + code).getBytes(StandardCharsets.UTF_8);
-		}
+	public byte[] setStatus(HttpStatus status) {
+		return setStatus(status, true);
 	}
 
 	/**
 	 * TODO
 	 */
-	public byte[] error(HttpStatus status) {
-		setHeader("Content-Type", ERROR_CONTENT_TYPE);
-		setCode(status.getCode());
-		return status.getStatusLine().getBytes(StandardCharsets.UTF_8);
+	public byte[] setStatus(HttpStatus status, boolean updateContent) {
+		HttpView view = status.getView();
+		if (updateContent) {
+			set(status.getCode(), view.getData(), view.getContentType(), view.getCharset());
+		} else {
+			setCode(status.getCode());
+		}
+		return null;
 	}
 	/* Response Code */
 
@@ -81,6 +80,15 @@ public class HttpResponse {
 	 */
 	public void setData(byte[] data) {
 		this.data = data;
+	}
+
+	/**
+	 * TODO
+	 */
+	public void set(int code, byte[] data, String contentType, String charset) {
+		setCode(code);
+		setData(data);
+		setHeader("Content-Type", contentType + "; charset=" + charset);
 	}
 	/* Response Data */
 

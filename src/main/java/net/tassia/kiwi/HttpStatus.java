@@ -1,5 +1,9 @@
 package net.tassia.kiwi;
 
+import net.tassia.kiwi.views.HttpView;
+
+import java.nio.charset.StandardCharsets;
+
 public enum HttpStatus {
 
 	/**
@@ -387,10 +391,12 @@ public enum HttpStatus {
 	private final int code;
 	private final String status;
 	private final HttpStatusCategory category;
+	private final HttpView view;
 	HttpStatus(int code, String status, HttpStatusCategory category) {
 		this.code = code;
 		this.status = status;
 		this.category = category;
+		this.view = HttpView.createStatic("text/plain", "utf8", status.getBytes(StandardCharsets.UTF_8));
 	}
 
 	/**
@@ -416,6 +422,14 @@ public enum HttpStatus {
 	 */
 	public HttpStatusCategory getCategory() {
 		return category;
+	}
+
+	/**
+	 * Returns the default view for this status.
+	 * @return the default view
+	 */
+	public HttpView getView() {
+		return view;
 	}
 
 

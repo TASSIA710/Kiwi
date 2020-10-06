@@ -2,7 +2,8 @@ package net.tassia.kiwi.driver.sun;
 
 import net.tassia.kiwi.*;
 import net.tassia.kiwi.middleware.Middleware;
-import net.tassia.kiwi.route.HttpRoute;
+import net.tassia.kiwi.route.HttpBasicRoute;
+import net.tassia.kiwi.views.HttpView;
 
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -11,7 +12,7 @@ import java.util.regex.Pattern;
 public class HttpRouteInternal {
 	protected String path = null;
 	protected Pattern pattern = null;
-	protected HttpRoute route = null;
+	protected HttpBasicRoute route = null;
 	protected Middleware[] middlewares = new Middleware[0];
 
 	protected boolean methodGET = false;
@@ -52,14 +53,13 @@ public class HttpRouteInternal {
 
 
 		// Execute route
-		byte[] data = null;
 		try {
-			data = route.process(kiwi, request, response, matches.toArray(new String[0]));
+			byte[] data = route.process(kiwi, request, response, matches.toArray(new String[0]));
+			if (data != null) response.setData(data);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			response.setData(response.error(HttpStatus.STATUS_500));
+			response.setStatus(HttpStatus.STATUS_500);
 		}
-		if (data != null) response.setData(data);
 
 
 		// Execute response middlewares
