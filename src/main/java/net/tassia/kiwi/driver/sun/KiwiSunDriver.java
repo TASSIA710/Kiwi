@@ -44,7 +44,7 @@ public class KiwiSunDriver extends KiwiDriver {
 			}
 
 			// Create response
-			HttpResponse res = new HttpResponse();
+			HttpResponse res = new HttpResponse(kiwi);
 
 			try {
 				// Create & dispatch request

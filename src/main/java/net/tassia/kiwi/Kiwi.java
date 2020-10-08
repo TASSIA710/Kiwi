@@ -14,6 +14,7 @@ public class Kiwi {
 	public static final int VERSION_BUILD = 1;
 	private final Logger logger;
 	private final ObjectMapper mapper;
+	private KiwiStatusPageBuilder statusPageBuilder;
 	private KiwiDriver driver;
 	private KiwiOptions options;
 
@@ -31,6 +32,7 @@ public class Kiwi {
 	public Kiwi(KiwiOptions options) {
 		this.logger = Logger.getLogger("Kiwi");
 		this.mapper = new ObjectMapper();
+		this.statusPageBuilder = KiwiStatusPageBuilder.DEFAULT;
 		this.driver = null;
 		this.options = options;
 	}
@@ -88,14 +90,40 @@ public class Kiwi {
 
 
 	/* Getters */
+	/**
+	 * TODO
+	 */
 	public Logger getLogger() {
 		return logger;
 	}
 
+	/**
+	 * TODO
+	 */
 	public ObjectMapper getMapper() {
 		return mapper;
 	}
 	/* Getters */
+
+
+
+
+
+	/* Status Page Builder */
+	/**
+	 * TODO
+	 */
+	public KiwiStatusPageBuilder getStatusPageBuilder() {
+		return statusPageBuilder;
+	}
+
+	/**
+	 * TODO
+	 */
+	public void setStatusPageBuilder(KiwiStatusPageBuilder statusPageBuilder) {
+		this.statusPageBuilder = statusPageBuilder;
+	}
+	/* Status Page Builder */
 
 
 

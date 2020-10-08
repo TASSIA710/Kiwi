@@ -1,13 +1,11 @@
 package net.tassia.kiwi;
 
-import net.tassia.kiwi.views.HttpView;
-
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HttpResponse {
 	public static final String ERROR_CONTENT_TYPE = "text/plain; charset=utf-8";
+	private final Kiwi kiwi;
 	private int code;
 	private byte[] data;
 	private final Map<String, String[]> headers;
@@ -16,7 +14,8 @@ public class HttpResponse {
 	/**
 	 * TODO
 	 */
-	public HttpResponse() {
+	public HttpResponse(Kiwi kiwi) {
+		this.kiwi = kiwi;
 		this.code = 200;
 		this.data = new byte[0];
 		this.headers = new HashMap<>();
@@ -53,11 +52,9 @@ public class HttpResponse {
 	 * TODO
 	 */
 	public byte[] setStatus(HttpStatus status, boolean updateContent) {
-		HttpView view = status.getView();
+		setCode(status.getCode());
 		if (updateContent) {
-			set(status.getCode(), view.getData(), view.getContentType(), view.getCharset());
-		} else {
-			setCode(status.getCode());
+			kiwi.getStatusPageBuilder().buildStatusPage(this, status);
 		}
 		return null;
 	}
@@ -85,10 +82,17 @@ public class HttpResponse {
 	/**
 	 * TODO
 	 */
-	public void set(int code, byte[] data, String contentType, String charset) {
-		setCode(code);
+	public void set(byte[] data, String contentType, String charset) {
 		setData(data);
 		setHeader("Content-Type", contentType + "; charset=" + charset);
+	}
+
+	/**
+	 * TODO
+	 */
+	public void set(int code, byte[] data, String contentType, String charset) {
+		setCode(code);
+		set(data, contentType, charset);
 	}
 	/* Response Data */
 
