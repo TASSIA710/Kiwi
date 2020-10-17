@@ -3,6 +3,12 @@ package net.tassia.kiwi.middleware;
 import net.tassia.kiwi.HttpRequest;
 import net.tassia.kiwi.HttpResponse;
 
+/**
+ * Middlewares can be applied to request and responses and can fulfill all kind of different purposes.
+ * Examples are:<br>
+ * - Authentication (on requests)<br>
+ * - Displaying Cookie Agreement (on responses)<br>
+ */
 public abstract class Middleware {
 
 	/**
