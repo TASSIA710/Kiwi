@@ -6,23 +6,29 @@ import net.tassia.kiwi.HttpResponse;
 public abstract class Middleware {
 
 	/**
-	 * TODO
+	 * Returns whether this middleware should be applied to requests.
+	 * @return apply
 	 */
 	public abstract boolean isRequestMiddleware();
 
 	/**
-	 * TODO
+	 * Applies this middleware to a request.
+	 * @param request the request
+	 * @return success return <code>false</code> to prevent further middlewares from being applied to this request
 	 */
 	public abstract boolean applyToRequest(HttpRequest request);
 
 	/**
-	 * TODO
+	 * Returns whether this middleware should be applied to responses.
+	 * @return apply
 	 */
 	public abstract boolean isResponseMiddleware();
 
 	/**
-	 * TODO
+	 * Applies this middleware to a response.
+	 * @param response the response
+	 * @return success return <code>false</code> to prevent further middlewares from being applied to this response
 	 */
-	public abstract boolean applyToResponse(HttpResponse request);
+	public abstract boolean applyToResponse(HttpResponse response);
 
 }
