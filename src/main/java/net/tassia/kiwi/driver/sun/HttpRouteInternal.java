@@ -47,7 +47,9 @@ public class HttpRouteInternal {
 		// Execute request middlewares
 		for (Middleware mw : middlewares) {
 			if (mw.isRequestMiddleware()) {
-				mw.applyToRequest(request);
+				if (!mw.applyToRequest(request)) {
+					break;
+				}
 			}
 		}
 
@@ -65,7 +67,9 @@ public class HttpRouteInternal {
 		// Execute response middlewares
 		for (Middleware mw : middlewares) {
 			if (mw.isResponseMiddleware()) {
-				mw.applyToResponse(response);
+				if (!mw.applyToResponse(response)) {
+					break;
+				}
 			}
 		}
 		return true;
