@@ -5,14 +5,22 @@ import net.tassia.kiwi.HttpRequest;
 import net.tassia.kiwi.HttpResponse;
 import net.tassia.kiwi.HttpStatus;
 import net.tassia.kiwi.Kiwi;
-import net.tassia.kiwi.views.HttpView;
 
 import java.io.IOException;
 
+/**
+ * This is a full JSON route. If this route takes any input bodies (e.g. on POST or PUT requests), it must be
+ * JSON data matching the request type class.
+ * @param <T> the request type class
+ */
 public abstract class JsonApiRoute<T> implements HttpBasicRoute {
 	public static final String CONTENT_TYPE = "application/json; charset=utf-8";
 	private final Class<T> requestStructure;
 
+	/**
+	 * Creates a new JSON api route with the given request type class.
+	 * @param requestStructure the request type class
+	 */
 	public JsonApiRoute(Class<T> requestStructure) {
 		this.requestStructure = requestStructure;
 	}
@@ -50,8 +58,14 @@ public abstract class JsonApiRoute<T> implements HttpBasicRoute {
 	}
 
 	/**
-	 * TODO
+	 * Processes this JSON request.
+	 * @param kiwi main
+	 * @param request the request
+	 * @param response the response
+	 * @param matches the matches if the route regex specified any groups
+	 * @param payload the payload, or <code>null</code> if no payload was supplied
+	 * @return response
 	 */
-	public abstract Object onApiRequest(Kiwi kwi, HttpRequest request, HttpResponse response, String[] matches, T payload);
+	public abstract Object onApiRequest(Kiwi kiwi, HttpRequest request, HttpResponse response, String[] matches, T payload);
 
 }
