@@ -9,4 +9,6 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: '9'
-    - run: mvn deploy -Dregistry=https://maven.pkg.github.com/TASSIA710 -Dtoken=${{ secrets.GITHUB_TOKEN }} --batch-mode
+    - run: mvn deploy --batch-mode --settings settings.xml
+      env:
+        personal_access_token: ${{ secrets.DEPLOY_PAT }}

@@ -21,15 +21,6 @@
     </build>
 
 
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>GitHub TASSIA710 Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/TASSIA710/Kiwi</url>
-		</repository>
-	</distributionManagement>
-
-
 	<dependencies>
 
 		<dependency>
