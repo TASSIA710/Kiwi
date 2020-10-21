@@ -45,9 +45,11 @@ public class HttpRouteInternal {
 
 
 		// Execute request middlewares
+		boolean propagate = true;
 		for (Middleware mw : middlewares) {
 			if (mw.isRequestMiddleware()) {
-				if (!mw.applyToRequest(request)) {
+				if (!mw.applyToRequest(request, response)) {
+					propagate = false;
 					break;
 				}
 			}
@@ -55,19 +57,21 @@ public class HttpRouteInternal {
 
 
 		// Execute route
-		try {
-			byte[] data = route.process(kiwi, request, response, matches.toArray(new String[0]));
-			if (data != null) response.setData(data);
-		} catch (Throwable ex) {
-			ex.printStackTrace();
-			response.setStatus(HttpStatus.STATUS_500);
+		if (propagate) {
+			try {
+				byte[] data = route.process(kiwi, request, response, matches.toArray(new String[0]));
+				if (data != null) response.setData(data);
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+				response.setStatus(HttpStatus.STATUS_500);
+			}
 		}
 
 
 		// Execute response middlewares
 		for (Middleware mw : middlewares) {
 			if (mw.isResponseMiddleware()) {
-				if (!mw.applyToResponse(response)) {
+				if (!mw.applyToResponse(request, response)) {
 					break;
 				}
 			}

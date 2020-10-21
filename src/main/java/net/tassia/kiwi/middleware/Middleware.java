@@ -22,7 +22,7 @@ public abstract class Middleware {
 	 * @param request the request
 	 * @return success return <code>false</code> to prevent further middlewares from being applied to this request
 	 */
-	public abstract boolean applyToRequest(HttpRequest request);
+	public abstract boolean applyToRequest(HttpRequest request, HttpResponse response);
 
 	/**
 	 * Returns whether this middleware should be applied to responses.
@@ -35,6 +35,6 @@ public abstract class Middleware {
 	 * @param response the response
 	 * @return success return <code>false</code> to prevent further middlewares from being applied to this response
 	 */
-	public abstract boolean applyToResponse(HttpResponse response);
+	public abstract boolean applyToResponse(HttpRequest request, HttpResponse response);
 
 }
