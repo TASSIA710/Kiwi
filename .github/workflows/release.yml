@@ -1,0 +1,9 @@
+name: Publish Package
+on: push
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: mvn deploy -Dregistry=https://maven.pkg.github.com/TASSIA710 -Dtoken=${{ secrets.GITHUB_TOKEN }}
