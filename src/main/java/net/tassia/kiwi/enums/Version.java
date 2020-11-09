@@ -1,6 +1,6 @@
-package net.tassia.kiwi;
+package net.tassia.kiwi.enums;
 
-public enum HttpVersion {
+public enum Version {
 
 	/**
 	 * @see <a href="https://tools.ietf.org/html/rfc1945">RFC 1945 - Hypertext Transfer Protocol -- HTTP/1.0</a>
@@ -25,7 +25,7 @@ public enum HttpVersion {
 
 
 	private final String name;
-	HttpVersion(String name) {
+	Version(String name) {
 		this.name = name;
 	}
 
@@ -42,7 +42,7 @@ public enum HttpVersion {
 	 * @param name the name
 	 * @return the parsed version
 	 */
-	public static HttpVersion parseVersion(String name) {
+	public static Version parseVersion(String name) {
 		switch (name) {
 			case "HTTP/1.0": return HTTP_1_0;
 			case "HTTP/1.1": return HTTP_1_1;

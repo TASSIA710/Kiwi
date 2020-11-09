@@ -1,6 +1,6 @@
-package net.tassia.kiwi;
+package net.tassia.kiwi.enums;
 
-public enum HttpMethod {
+public enum Method {
 
 	/**
 	 * The GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
@@ -37,19 +37,19 @@ public enum HttpMethod {
 	 * The CONNECT method establishes a tunnel to the server identified by the target resource.
 	 * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP Methods</a>
 	 */
-	CONNECT,
+	@Deprecated CONNECT,
 
 	/**
 	 * The OPTIONS method is used to describe the communication options for the target resource.
 	 * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP Methods</a>
 	 */
-	OPTIONS,
+	@Deprecated OPTIONS,
 
 	/**
 	 * The TRACE method performs a message loop-back test along the path to the target resource.
 	 * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP Methods</a>
 	 */
-	TRACE,
+	@Deprecated TRACE,
 
 	/**
 	 * The PATCH method is used to apply partial modifications to a resource.
