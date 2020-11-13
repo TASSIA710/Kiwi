@@ -1,8 +1,11 @@
 package net.tassia.kiwi;
 
-import net.tassia.kiwi.driver.BasicDriver;
+import net.tassia.kiwi.driver.basic.BasicDriver;
 import net.tassia.kiwi.driver.Driver;
 import net.tassia.kiwi.router.Router;
+import net.tassia.kiwi.router.basic.BasicRouter;
+import net.tassia.kiwi.statusbuilder.PlainStatusBuilder;
+import net.tassia.kiwi.statusbuilder.StatusBuilder;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -15,6 +18,7 @@ public class Server {
 	private final Logger logger;
 	private final Router router;
 	private final Driver driver;
+	private final StatusBuilder statusBuilder;
 	private final ExecutorService services;
 	private final ExecutorService clients;
 
@@ -24,8 +28,9 @@ public class Server {
 		this.logger.setLevel(Level.ALL);
 
 		// Setup misc
-		this.router = null;
+		this.router = new BasicRouter();
 		this.driver = new BasicDriver(this);
+		this.statusBuilder = new PlainStatusBuilder();
 
 		// Setup ExecutorServices
 		ThreadFactories threadFactories = new ThreadFactories();
@@ -39,6 +44,10 @@ public class Server {
 
 	public Router getRouter() {
 		return router;
+	}
+
+	public StatusBuilder getStatusBuilder() {
+		return statusBuilder;
 	}
 
 	public ExecutorService getServiceExecutor() {

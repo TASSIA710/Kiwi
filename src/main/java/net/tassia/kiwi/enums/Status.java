@@ -452,10 +452,10 @@ public enum Status {
 	}
 
 	/**
-	 * Returns the status line (e.g. 'Not Found') of this status.
-	 * @return the status line
+	 * Returns the status text (e.g. 'Not Found') of this status.
+	 * @return the status text
 	 */
-	public String getStatusLine() {
+	public String getStatusText() {
 		return status;
 	}
 

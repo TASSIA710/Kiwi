@@ -55,6 +55,26 @@ public enum Method {
 	 * The PATCH method is used to apply partial modifications to a resource.
 	 * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP Methods</a>
 	 */
-	PATCH
+	PATCH;
+
+	/**
+	 * Determines the HTTP method using the given name.
+	 * @param name the name
+	 * @return the parsed method
+	 */
+	public static Method parseMethod(String name) {
+		switch (name) {
+			case "GET": return GET;
+			case "HEAD": return HEAD;
+			case "POST": return POST;
+			case "PUT": return PUT;
+			case "DELETE": return DELETE;
+			case "CONNECT": return CONNECT;
+			case "OPTIONS": return OPTIONS;
+			case "TRACE": return TRACE;
+			case "PATCH": return PATCH;
+			default: return null;
+		}
+	}
 
 }
