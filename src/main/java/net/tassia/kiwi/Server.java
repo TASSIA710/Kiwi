@@ -25,7 +25,9 @@ public class Server {
 	public Server() {
 		// Setup Logger
 		this.logger = Logger.getLogger("Kiwi");
-		this.logger.setLevel(Level.ALL);
+		this.logger.addHandler(new KiwiLoggingHandler(false));
+		this.logger.setUseParentHandlers(false);
+		this.logger.setLevel(Level.FINE);
 
 		// Setup misc
 		this.router = new BasicRouter();

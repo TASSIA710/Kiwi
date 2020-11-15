@@ -22,13 +22,13 @@ class DataAcceptor implements Runnable {
 	@Override
 	public void run() {
 		try {
-			driver.getServer().getLogger().info("Client #" + clientID + " | Connected from " + socket.getRemoteSocketAddress());
+			driver.getServer().getLogger().fine("Client #" + clientID + " | Connected from " + socket.getRemoteSocketAddress());
 			Response response = null;
 			Request request = null;
 
 			// Read request
 			try {
-				driver.getServer().getLogger().info("Client #" + clientID + " | Reading request...");
+				driver.getServer().getLogger().fine("Client #" + clientID + " | Reading request...");
 				request = IOUtil.readRequestV1(socket.getInputStream());
 			} catch (Throwable ex) {
 				ex.printStackTrace();
@@ -38,7 +38,7 @@ class DataAcceptor implements Runnable {
 			// Process request
 			if (request != null) {
 				try {
-					driver.getServer().getLogger().info("Client #" + clientID + " | Processing request...");
+					driver.getServer().getLogger().fine("Client #" + clientID + " | Processing request...");
 					response = driver.getServer().getRouter().route(request);
 					if (response == null) response = driver.getServer().getStatusBuilder().buildStatusPage(Status.STATUS_404);
 				} catch (Throwable ex) {
@@ -50,14 +50,14 @@ class DataAcceptor implements Runnable {
 			}
 
 			// Write response
-			driver.getServer().getLogger().info("Client #" + clientID + " | Writing response...");
+			driver.getServer().getLogger().fine("Client #" + clientID + " | Writing response...");
 			IOUtil.writeRequestV1(socket.getOutputStream(), response);
 
 			// Close connection
-			driver.getServer().getLogger().info("Client #" + clientID + " | Closing connection...");
+			driver.getServer().getLogger().fine("Client #" + clientID + " | Closing connection...");
 			socket.close();
 
-			driver.getServer().getLogger().info("Client #" + clientID + " | Connection closed.");
+			driver.getServer().getLogger().fine("Client #" + clientID + " | Connection closed.");
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}

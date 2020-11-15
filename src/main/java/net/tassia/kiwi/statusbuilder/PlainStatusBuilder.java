@@ -2,6 +2,7 @@ package net.tassia.kiwi.statusbuilder;
 
 import net.tassia.kiwi.Response;
 import net.tassia.kiwi.enums.Status;
+import net.tassia.kiwi.media.MediaType;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -13,12 +14,12 @@ public class PlainStatusBuilder implements StatusBuilder {
 
 	public PlainStatusBuilder() {
 		this.headers = new HashMap<>();
-		// TODO: ContentType
+		this.headers.put("Content-Type", new MediaType(MediaType.TEXT_PLAIN, MediaType.UTF8).toHeaderString());
 	}
 
 	@Override
 	public Response buildStatusPage(Status status) {
-		return Response.generateBasicResponse(status, headers, status.getStatusText().getBytes(StandardCharsets.UTF_8));
+		return Response.buildResponse(status, status.getStatusText().getBytes(StandardCharsets.UTF_8), headers);
 	}
 
 }

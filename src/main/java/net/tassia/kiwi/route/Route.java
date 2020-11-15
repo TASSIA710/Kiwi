@@ -5,5 +5,7 @@ import net.tassia.kiwi.Response;
 
 @FunctionalInterface
 public interface Route {
+
 	Response process(Request request, String[] matches);
+
 }
