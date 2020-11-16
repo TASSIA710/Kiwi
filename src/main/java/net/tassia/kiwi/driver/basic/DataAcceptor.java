@@ -39,7 +39,7 @@ class DataAcceptor implements Runnable {
 			if (request != null) {
 				try {
 					driver.getServer().getLogger().fine("Client #" + clientID + " | Processing request...");
-					response = driver.getServer().getRouter().route(request);
+					response = driver.getServer().getRouter().route(driver.getServer(), request);
 					if (response == null) response = driver.getServer().getStatusBuilder().buildStatusPage(Status.STATUS_404);
 				} catch (Throwable ex) {
 					ex.printStackTrace();
