@@ -1,14 +1,13 @@
 package net.tassia.kiwi;
 
 import net.tassia.kiwi.enums.Status;
-import net.tassia.kiwi.enums.Version;
 
-import java.io.OutputStream;
 import java.util.Map;
 
 public abstract class Response extends MimeMessage {
 
 	public abstract Status getStatus();
+	public abstract void setStatus(Status status);
 
 	public abstract byte[] getPayload();
 	public abstract void setPayload(byte[] payload);
@@ -21,7 +20,7 @@ public abstract class Response extends MimeMessage {
 
 	private static class BasicResponse extends Response {
 
-		private final Status status;
+		private Status status;
 		private byte[] payload;
 		private Map<String, String> headers;
 
@@ -34,6 +33,11 @@ public abstract class Response extends MimeMessage {
 		@Override
 		public Status getStatus() {
 			return status;
+		}
+
+		@Override
+		public void setStatus(Status status) {
+			this.status = status;
 		}
 
 		@Override

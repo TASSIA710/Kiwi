@@ -2,6 +2,7 @@ package net.tassia.kiwi.router.basic;
 
 import net.tassia.kiwi.Request;
 import net.tassia.kiwi.Response;
+import net.tassia.kiwi.Server;
 import net.tassia.kiwi.enums.Method;
 import net.tassia.kiwi.route.Route;
 import net.tassia.kiwi.router.Router;
@@ -14,7 +15,7 @@ public class BasicRouter extends Router {
 	private final RouteWrapper[][] routeWrappers = new RouteWrapper[Method.values().length][0];
 
 	@Override
-	public Response route(Request request) {
+	public Response route(Server server, Request request) {
 		for (RouteWrapper wrapper : routeWrappers[request.getMethod().ordinal()]) {
 
 			// Prepare path
@@ -33,7 +34,7 @@ public class BasicRouter extends Router {
 			}
 
 			// Execute
-			return wrapper.route.process(request, matches.toArray(String[]::new));
+			return wrapper.route.process(server, request, matches.toArray(String[]::new));
 
 		}
 		return null;

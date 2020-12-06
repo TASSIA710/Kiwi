@@ -2,12 +2,13 @@ package net.tassia.kiwi.router;
 
 import net.tassia.kiwi.Request;
 import net.tassia.kiwi.Response;
+import net.tassia.kiwi.Server;
 import net.tassia.kiwi.enums.Method;
 import net.tassia.kiwi.route.Route;
 
 public abstract class Router {
 
-	public abstract Response route(Request request);
+	public abstract Response route(Server server, Request request);
 	public abstract void matches(String regex, Route route, Method...methods);
 
 	public void GET(String regex, Route route) {

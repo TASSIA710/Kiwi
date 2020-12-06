@@ -2,6 +2,7 @@ package net.tassia.kiwi.driver.basic;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 class SocketAcceptor implements Runnable {
 
@@ -17,8 +18,12 @@ class SocketAcceptor implements Runnable {
 	public void run() {
 		try {
 			while (true) {
-				Socket socket = driver.serverSocket.accept();
-				driver.getServer().getClientExecutor().submit(new DataAcceptor(driver, socket, clientCounter++));
+				try {
+					Socket socket = driver.serverSocket.accept();
+					driver.getServer().getClientExecutor().submit(new DataAcceptor(driver, socket, clientCounter++));
+				} catch (SocketException ex) {
+					break;
+				}
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();

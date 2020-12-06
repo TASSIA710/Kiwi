@@ -2,6 +2,7 @@ package net.tassia.kiwi.route;
 
 import net.tassia.kiwi.Request;
 import net.tassia.kiwi.Response;
+import net.tassia.kiwi.Server;
 import net.tassia.kiwi.enums.Status;
 import net.tassia.kiwi.media.MediaType;
 
@@ -17,13 +18,12 @@ public class StaticRoute implements Route {
 	}
 
 	public StaticRoute(byte[] payload, MediaType mediaType, Status status) {
-		Map<String, String> headers = new HashMap<>();
-		headers.put("Content-Type", mediaType.toHeaderString());
-		this.response = Response.buildResponse(status, payload, headers);
+		this.response = Response.buildResponse(status, payload, new HashMap<>());
+		this.response.setMediaType(mediaType);
 	}
 
 	@Override
-	public Response process(Request request, String[] matches) {
+	public Response process(Server server, Request request, String[] matches) {
 		return response;
 	}
 
