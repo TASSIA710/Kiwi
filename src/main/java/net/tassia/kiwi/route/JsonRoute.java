@@ -56,9 +56,9 @@ public abstract class JsonRoute<T> implements Route {
 		}
 
 		// Prepare response
-		byte[] outputBytes;
 		try {
-			outputBytes = objectMapper.writeValueAsString(output).getBytes(MediaType.ASCII);
+			response.setMediaType(new MediaType(MediaType.APPLICATION_JSON));
+			response.setPayload(objectMapper.writeValueAsString(output).getBytes(MediaType.ASCII));
 		} catch (JsonProcessingException ex) {
 			ex.printStackTrace();
 			return server.getStatusBuilder().buildStatusPage(Status.STATUS_500);

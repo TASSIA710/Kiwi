@@ -18,6 +18,10 @@ public class MediaType {
 	private final String mimeType;
 	private final Charset charset;
 
+	public MediaType(String mimeType) {
+		this(mimeType, UTF8);
+	}
+
 	public MediaType(String mimeType, Charset charset) {
 		this.mimeType = mimeType;
 		this.charset = charset;
